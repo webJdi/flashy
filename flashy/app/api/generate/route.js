@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import OpenAI from "openai";
 
 const systemPrompt=`You are a flash card generator. Your task is to create flashcards that are concise, clear, and informative. You should structure the information to optimize learning and retention, presenting a question or prompt on one side and a corresponding answer or explanation on the other. Ensure that the content is relevant to the topic provided and formatted to enhance understanding 
+Only generate 10 flashcards.
 
 Return in the following JSON format:
 {
@@ -9,6 +10,7 @@ Return in the following JSON format:
         "front": str,
         "back": str
 }]
+
 
 }
 `

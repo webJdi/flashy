@@ -5,7 +5,8 @@ import Head from 'next/head';
 
 export default function Home() {
   return (
-    <Container>
+    <Container
+    >
       <Head>
         <title>Flashy</title>
         <meta name="description" content="Create flashcard from text"></meta>
@@ -17,14 +18,21 @@ export default function Home() {
         <Toolbar>
           <Typography
             variant="h6"
+            style={{flexGrow: 1}}
           >
             Flashy
           </Typography>
           <SignedOut>
-            <Button>
+            <Button
+              color="inherit"
+              href="/sign-in"
+            >
               Login
             </Button>
-            <Button>
+            <Button
+              color="inherit"
+              href="/sign-up"
+            >
               Sign Up
             </Button>
           </SignedOut>
@@ -33,7 +41,7 @@ export default function Home() {
           </SignedIn>
         </Toolbar>
       </AppBar>
-
+      
       <Box
         sx = {{textAlign: 'center', my : 4}}
       >
