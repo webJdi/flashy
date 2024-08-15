@@ -21,7 +21,7 @@ export async function POST(req) {
       apiKey: process.env.OPENROUTER_API_KEY,
     });
   
-    try {
+    
       const data = await req.text();
   
       const completion = await openai.chat.completions.create({
@@ -37,35 +37,10 @@ export async function POST(req) {
         ],
         model: "meta-llama/llama-3.1-8b-instruct:free",
         response_format:{type:'json_object'}
-      });
+      })
       
       const flashcards = JSON.parse(completion.choices[0].message.content)
 
+      console.log(flashcards)
       return NextResponse.json(flashcards.flashcard)
-      const stream = new ReadableStream({
-        async start(controller) {
-          const encoder = new TextEncoder();
-          try {
-            for await (const chunk of completion) {
-              const content = chunk.choices[0]?.delta?.content;
-              if (content) {
-                const text = encoder.encode(content);
-                controller.enqueue(text); 
-              }
-            }
-          } catch (err) {
-            controller.error(err); 
-          } finally {
-            controller.close(); 
-          }
-        },
-      });
-      return new NextResponse(stream);
-    } catch (error) {
-      return new NextResponse(
-        JSON.stringify({ error: "Failed to generate a response" }),
-        { status: 500 }
-      );
-    }
-  }
-  
+};
