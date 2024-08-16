@@ -1,19 +1,20 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 
-const systemPrompt=`You are a flash card generator. Your task is to create flashcards that are concise, clear, and informative. You should structure the information to optimize learning and retention, presenting a question or prompt on one side and a corresponding answer or explanation on the other. Ensure that the content is relevant to the topic provided and formatted to enhance understanding 
-Only generate 10 flashcards.
+const systemPrompt=`You are a flash card generator. Your task is to create flashcards in valid JSON format. The structure should be exactly like this:
 
-Return in the following JSON format:
 {
-    "flashcards":[{
-        "front": str,
-        "back": str
-}]
-
-
+  "flashcards": [
+    {
+      "front": "string",
+      "back": "string"
+    }
+  ]
 }
-`
+
+Do not include any explanation, extra text, or commentary. Only return the valid JSON format.
+Please return 10 flashcards in valid JSON format, without additional explanations.
+`;
 
 export async function POST(req) {
     const openai = new OpenAI({
@@ -42,5 +43,5 @@ export async function POST(req) {
       const flashcards = JSON.parse(completion.choices[0].message.content)
 
       console.log(flashcards)
-      return NextResponse.json(flashcards.flashcard)
+      return NextResponse.json(flashcards)
 };
