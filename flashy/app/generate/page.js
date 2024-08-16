@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Container, Typography, Box, Paper, TextField, Button, CardActionArea, CardContent, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from "@mui/material";
 import { useState} from "react";
 import {useUser} from '@clerk/nextjs';
+import {db} from '../firebase';
 
 export default function Generate(){
     const {isLoaded, isSignedIn, user} = useUser()
@@ -76,7 +77,7 @@ export default function Generate(){
         });
 
         await batch.commit()
-        handlClose()
+        handleClose()
         router.push('/flashcards')
     }
 
@@ -192,7 +193,7 @@ export default function Generate(){
                     </Grid>
 
                     <Box sx={{mt:4, display:'flex', justifyContent:'center'}}>
-                        <Button variant='contained' color='secondary' onClick={{handleOpen}}>
+                        <Button variant='contained' color='secondary' onClick={handleOpen}>
                             Save
                         </Button>
                     </Box>
