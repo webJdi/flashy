@@ -109,9 +109,9 @@ export default function Generate(){
                     Generate
                 </Typography>
                 <Paper
-                    sx={{p:4, width:'40%', backgroundColor: '#1e272e', borderRadius:'0.5em', border:'1px solid #706fd3'}}
+                    sx={{p:4, backgroundColor: '#1e272e', borderRadius:'0.5em', border:'1px solid #706fd3'}}
                     padding={2}
-                    
+                    width={{md:'40%',sm:'40%',xs:'80%'}}
                     
                 >
                     <TextField
