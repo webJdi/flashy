@@ -111,7 +111,7 @@ export default function Generate(){
                 <Paper
                     sx={{p:4, backgroundColor: '#1e272e', borderRadius:'0.5em', border:'1px solid #706fd3'}}
                     padding={2}
-                    width={{md:'40%',sm:'40%',xs:'80%'}}
+                    width={{md:'80%',sm:'80%',xs:'80%'}}
                     
                 >
                     <TextField
