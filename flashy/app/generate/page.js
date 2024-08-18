@@ -2,10 +2,11 @@
 
 import { collection, writeBatch, doc, getDoc} from "firebase/firestore";
 import { useRouter } from "next/navigation";
-import { Container, Typography, Box, Paper, TextField, Button, CardActionArea, CardContent, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from "@mui/material";
+import { Container, Typography, Card, Box, Grid, Paper, TextField, Button, CardActionArea, CardContent, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from "@mui/material";
 import { useState} from "react";
 import {useUser} from '@clerk/nextjs';
 import {db} from '../firebase';
+import Head from 'next/head';
 
 export default function Generate(){
     const {isLoaded, isSignedIn, user} = useUser()
@@ -23,7 +24,8 @@ export default function Generate(){
             body:text,
         })
         .then((res) => res.json())
-        .then(data => setFlashcards(data))
+        .then((data) => setFlashcards(data))
+        console.log(flashcards)
     }
 
     const handleCardClick = (id) => {
@@ -81,37 +83,71 @@ export default function Generate(){
         router.push('/flashcards')
     }
 
+    const bgOne = '#40407a'
+    const bgTwo = '#706fd3'
+    const bgThree = "#fff"
+
     return(
+        
         <Container
             maxWidth={'100vw'}
         >
+            <Head>
+                <title>Flashy</title>
+                <meta name="description" content="Create flashcard from text"></meta>
+            </Head>
             <Box
                 sx={{mt:4, mb:6, display:'flex', flexDirection: 'column', alignItems: 'center'}}
+                backgroundColor ={bgOne}
+                padding={4}
+                justifyContent={'center'}
+                alignContent={'center'}
             >
                 <Typography
                     variant="h4"
                 >
-                    Generate Flashcards
+                    Generate
                 </Typography>
-                <Paper sx={{p:4, width:'100%'}}>
+                <Paper
+                    sx={{p:4, width:'40%', backgroundColor: '#1e272e', borderRadius:'0.5em', border:'1px solid #706fd3'}}
+                    padding={2}
+                    
+                    
+                >
                     <TextField
                     value={text}
                     onChange={(e) => setText(e.target.value)}
+                    
                     label="Enter text"
                     fullWidth
                     rows={4}
+                    borderColor={'#fff'}
                     multiline
-                    variant="outlined"
+                    variant="standard"
                     sx = {{
                         mb:2,
-
-                    }}
+                        color:'#fff',
+                        '& .MuiInputBase-root': {
+                            color: 'white',
+                          },
+                          '& .MuiOutlinedInput-notchedOutline': {
+                            borderColor: 'white',  // Outline color
+                          },
+                          '& .MuiInputLabel-root': {
+                            color: 'white',  // Label color
+                          },
+                          '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                            borderColor: 'white',  // Outline color when focused
+                          },
+                          '& .MuiInputLabel-root.Mui-focused': {
+                            color: 'white',  // Label color when focused
+                    }}}
                     />
                     <Button
                         variant='contained'
-                        color='primary'
+                        color='secondary'
                         onClick={handleSubmit}
-                        fullWidth
+                        
                     >
                         Submit
                     </Button>
@@ -122,18 +158,30 @@ export default function Generate(){
                     <Typography variant="h5">
                         Flashcards Preview
                     </Typography>
-                    <Grid container spacing={3}>
+                    <Grid container spacing={3}
+                    
+                    >
                         {flashcards.map((flashcard, index) =>
-                            (  <Grid item xs={12} sm={6} md={4} key = {index}>
-                                <Card>
+                            (  <Grid item xs={12} sm={6} md={4} key = {index}
+                                
+                                >
+                                <Card
+                                sx={{background:bgOne, borderRadius:'0.5em'}}
+                                >
                                     <CardActionArea
+                                        sx={{background:bgOne, borderRadius:'0.5em'}}
                                         onClick={() => {
                                             handleCardClick(index)
                                         }}
+                                        backgroundColor={bgOne}
                                     >
-                                        <CardContent>
+                                        <CardContent
+                                            sx={{background:bgOne, borderRadius:'0.5em'}}
+                                        >
                                             <Box
+                                                backgroundColor={bgTwo}
                                                 sx={{
+                                                    fontWeight:'200',
                                                     perspective: '1000px',
                                                     '&>div': {
                                                         transition: 'transform 0.6s',
@@ -141,7 +189,7 @@ export default function Generate(){
                                                         position: 'relative',
                                                         width:'100%',
                                                         height:'200px',
-                                                        boxShadow: '0 4px 8px 0 rgba(0,0,0, 0.2)',
+                                                        boxShadow: '0 4px 8px 0 rgba(0,0,0, 0.6)',
                                                         transform: flipped[index]
                                                         ? 'rotateY(180deg)'
                                                         : 'rotateY(0deg)',
@@ -193,9 +241,7 @@ export default function Generate(){
                     </Grid>
 
                     <Box sx={{mt:4, display:'flex', justifyContent:'center'}}>
-                        <Button variant='contained' color='secondary' onClick={handleOpen}>
-                            Save
-                        </Button>
+                        
                     </Box>
                 </Box>
             )}
@@ -210,7 +256,7 @@ export default function Generate(){
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Please enter a bane for your flashcards collection
+                        Please enter a name for your flashcards collection
                     </DialogContentText>
                     <TextField
                         autoFocus

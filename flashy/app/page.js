@@ -3,7 +3,11 @@ import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { AppBar, Button, Box, Container, Grid, Toolbar, Typography } from "@mui/material";
 import Head from 'next/head';
 
+
+
 export default function Home() {
+  
+
   return (
     <Container
     >
@@ -11,10 +15,15 @@ export default function Home() {
         <title>Flashy</title>
         <meta name="description" content="Create flashcard from text"></meta>
       </Head>
+      <Box
+      >
 
+      </Box>
       <AppBar
         position="static"
-      >
+          sx={{background: 'rgb(255,255,255)',
+            background: 'linear-gradient(0deg, rgba(255,255,255,0.0) 3%, rgba(255,255,255,0.1) 100%)'}}
+          >
         <Toolbar>
           <Typography
             variant="h6"
@@ -26,12 +35,18 @@ export default function Home() {
             <Button
               color="inherit"
               href="/sign-in"
+              variant="outlined"
+              size="small"
+              margin={2}
             >
               Login
             </Button>
             <Button
               color="inherit"
               href="/sign-up"
+              variant="outlined"
+              size="small"
+              margin={2}
             >
               Sign Up
             </Button>
@@ -43,7 +58,10 @@ export default function Home() {
       </AppBar>
       
       <Box
-        sx = {{textAlign: 'center', my : 4}}
+        sx = {{textAlign: 'center', my : 4,
+          
+        }}
+        
       >
         <Typography variant="h2">
           Welcome to Flashy
@@ -54,11 +72,11 @@ export default function Home() {
             {''}
             The easiest way to generate Flashcards from text
         </Typography>
-        <Button variant="contained" color="primary" sx={{mt:2}}>Get Started</Button>
+        <Button variant="contained" color="primary" sx={{mt:2}} href="/generate">Get Started</Button>
       </Box>
 
       <Box
-        sx={{my: 6}}
+        sx={{my: 6,}}
       >
         <Typography
           variant = "h4"
@@ -74,6 +92,7 @@ export default function Home() {
               item
               xs={12}
               md={4}
+              
             >
               
                 <Typography
